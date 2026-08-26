@@ -1,0 +1,16 @@
+# ============================================================
+# Dialogue Frame Finder - core dependencies
+# Tested on Python 3.12 / 3.14 (Windows, CPU-only inference)
+# ============================================================
+
+faster-whisper>=1.2.1          # Whisper ASR (word-level timestamps, VAD filter).
+                               # 1.2.1+ recommended: clip_timestamps handling fixed.
+ctranslate2>=4.8.1             # Inference engine behind faster-whisper (int8 CPU).
+                               # Auto-installed with faster-whisper; pinned for reproducibility.
+opencv-python-headless>=4.8.0  # Video metadata (fps/duration) + frame extraction.
+torch>=2.1.0                   # Silero VAD (loaded via torch.hub).
+yt-dlp>=2024.1.0               # Video download for URL sources (YouTube, ok.ru, ...).
+rapidfuzz>=3.0.0               # Fuzzy dialogue matching fallback (token_sort_ratio).
+
+# NOTE: ffmpeg + ffprobe are SYSTEM binaries, not pip packages.
+#       Install them separately -- see README.md, Step 1.

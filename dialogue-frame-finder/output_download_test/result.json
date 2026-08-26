@@ -1,0 +1,7 @@
+{
+  "status": "download_failed",
+  "reason": "All download methods failed",
+  "timings": {
+    "acquire_video": 5.605
+  }
+}

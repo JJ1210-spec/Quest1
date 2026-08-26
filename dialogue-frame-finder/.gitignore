@@ -1,0 +1,23 @@
+# Output files (large; user-generated)
+output/
+output_opt/
+output_okru/
+output_okru_tiny/
+output_modular_bench/
+output_orig_test/
+output_check/
+*.mp4
+*.wav
+*.jpg
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
