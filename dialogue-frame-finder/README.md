@@ -9,7 +9,7 @@ Give it a video and a quote:
 
 ```bash
 python -m dialogue_frame_finder_optimized \
-    --source "https://ok.ru/videoembed/248244667877" \
+    --source "https://ok.ru/video/248244667877" \
     --query  "My mind rebels at stagnation" \
     --outdir ./output
 ```
@@ -34,7 +34,7 @@ python -m dialogue_frame_finder_optimized \
 Video / URL
     │
     ▼
-yt-dlp / curl / local path ──► MP4          (3-layer fallback: TLS12 wrapper → yt-dlp → curl)
+yt-dlp / curl / local path ──► MP4          (simple yt-dlp + curl TLS 1.2 fallback)
     │
     ▼
 ffprobe ─────────────────────► FPS · duration · VFR flag
@@ -126,8 +126,8 @@ ffprobe -version
 ### Step 2 — Get the code
 
 ```bash
-git clone https://github.com/<your-username>/dialogue-frame-finder.git
-cd dialogue-frame-finder
+git clone https://github.com/JJ1210-spec/Quest1.git
+cd Quest1/dialogue-frame-finder
 ```
 
 *(or download and extract the ZIP, then `cd` into it)*
@@ -155,7 +155,7 @@ This installs: `faster-whisper` (+ `ctranslate2`), `opencv-python-headless`,
 
 ```bash
 python -m dialogue_frame_finder_optimized \
-    --source "https://ok.ru/videoembed/248244667877" \
+    --source "https://ok.ru/video/248244667877" \
     --query  "My mind rebels at stagnation" \
     --outdir ./output
 ```
@@ -196,7 +196,7 @@ output/
 
 ```bash
 python -m dialogue_frame_finder_optimized \
-    --source "https://ok.ru/videoembed/248244667877" \
+    --source "https://ok.ru/video/248244667877" \
     --query  "My mind rebels at stagnation" \
     --outdir ./output
 ```
@@ -290,17 +290,31 @@ output/
 Statuses: `success` (exact match) · `partial_match` (fuzzy ≥ threshold) ·
 `no_match` (line not found — `closest_text` included for debugging).
 
-## Variants in this repo
+## Repository layout
 
-| Variant | Type | Models | Best for |
-|---|---|---|---|
-| `dialogue_frame_finder_optimized/` | **Modular package** | `tiny.en` end-to-end, beam 5 | **Default.** Fastest, clean architecture, curl fallback for TLS issues |
-| `dialogue_frame_finder_optimized.py` | Single file | `tiny.en` end-to-end, beam 5 | Same logic as package, single-file convenience |
-| `dialogue_frame_finder_base_en.py` | Single file | `base.en` coarse + `small.en` fine | Extra coarse-pass accuracy headroom for noisy audio |
-| `dialogue_frame_finder.py` | Single file | `small` (CPU) / `large-v3` (GPU) | Original multilingual reference implementation |
-
-All variants share the identical pipeline and matching logic — they differ only
-in model selection and inference configuration.
+```
+Quest1/
+├── dialogue-frame-finder/
+│   ├── dialogue_frame_finder_optimized/   ← MODULAR PACKAGE
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── config.py
+│   │   ├── timing.py
+│   │   ├── download.py
+│   │   ├── metadata.py
+│   │   ├── audio.py
+│   │   ├── vad.py
+│   │   ├── transcribe.py
+│   │   ├── matching.py
+│   │   ├── frame.py
+│   │   ├── pipeline.py
+│   │   └── main.py
+│   ├── README.md
+│   ├── approach.md
+│   ├── requirements.txt
+│   └── prompts.txt
+└── quest1-v3_final.ipynb
+```
 
 ## Troubleshooting
 

@@ -301,34 +301,26 @@ pass fix (`vad_filter=True` instead of `clip_timestamps`) reduced
 
 ```
 Quest1/
-├── approach.md                          ← this document
-├── Baseline/                            ← Kaggle MVP notebook + reference result
-│   └── quest1-baseline.ipynb
-├── error-handling-v2/                   ← robustness iteration
-│   └── quest1-v2-error-handling.ipynb
-├── optimization -v3/                    ← tiering + coarse-to-fine iteration
-│   ├── quest1-v3.ipynb
-│   └── quest1-v3_final.ipynb            (identical final save)
-└── dialogue-frame-finder/               ← CLI tool (GitHub repo content)
-    ├── dialogue_frame_finder_optimized/ ← MODULAR PACKAGE (recommended)
-    │   ├── __init__.py
-    │   ├── __main__.py
-    │   ├── config.py
-    │   ├── timing.py
-    │   ├── download.py
-    │   ├── metadata.py
-    │   ├── audio.py
-    │   ├── vad.py
-    │   ├── transcribe.py
-    │   ├── matching.py
-    │   ├── frame.py
-    │   ├── pipeline.py
-    │   └── main.py
-    ├── dialogue_frame_finder_optimized.py  single-file version (same logic)
-    ├── dialogue_frame_finder_base_en.py    CPU-optimized: base.en + small.en fine
-    ├── dialogue_frame_finder.py            original conversion (reference)
-    ├── requirements.txt · README.md · .gitignore
-    └── output*/                           (gitignored: media + result JSONs)
+├── dialogue-frame-finder/
+│   ├── dialogue_frame_finder_optimized/   ← MODULAR PACKAGE (recommended)
+│   │   ├── __init__.py
+│   │   ├── __main__.py
+│   │   ├── config.py
+│   │   ├── timing.py
+│   │   ├── download.py
+│   │   ├── metadata.py
+│   │   ├── audio.py
+│   │   ├── vad.py
+│   │   ├── transcribe.py
+│   │   ├── matching.py
+│   │   ├── frame.py
+│   │   ├── pipeline.py
+│   │   └── main.py
+│   ├── README.md
+│   ├── approach.md
+│   ├── requirements.txt
+│   └── prompts.txt
+└── quest1-v3_final.ipynb
 ```
 
 ---
@@ -336,34 +328,18 @@ Quest1/
 ## 8. How to run
 
 ```bash
-pip install -r dialogue-frame-finder/requirements.txt
+git clone https://github.com/JJ1210-spec/Quest1.git
+cd Quest1/dialogue-frame-finder
+pip install -r requirements.txt
 ```
 
-ffmpeg/ffprobe must be on PATH (see dialogue-frame-finder/README.md).
+ffmpeg/ffprobe must be on PATH (see README.md).
 
 ```bash
-cd dialogue-frame-finder
-
-# modular package (recommended)
 python -m dialogue_frame_finder_optimized \
-    --source "https://ok.ru/videoembed/248244667877" \
+    --source "https://ok.ru/video/248244667877" \
     --query "My mind rebels at stagnation" \
     --outdir ./output
-
-# single-file version (same logic)
-python dialogue_frame_finder_optimized.py \
-    --source "https://ok.ru/videoembed/248244667877" \
-    --query "My mind rebels at stagnation" \
-    --outdir ./output
-
-# accuracy-leaning variant
-python dialogue_frame_finder_base_en.py \
-    --source ./input_video.mp4 \
-    --query "My mind rebels at stagnation" \
-    --outdir ./output
-
-# original behaviour (multilingual small on CPU / large-v3 on GPU)
-python dialogue_frame_finder.py --source ... --query ... --outdir ./output
 ```
 
 ---
