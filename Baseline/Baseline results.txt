@@ -1,9 +1,0 @@
-Baseline results
-
-{
-  "query": "My mind rebels at stagnation",
-  "matched_text": "My mind rebels at stagnation.",
-  "timestamp_sec": 324.68,
-  "frame_number": 7785,
-  "frame_image_path": "/kaggle/working/matched_frame.jpg"
-}
