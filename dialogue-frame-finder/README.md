@@ -1,5 +1,6 @@
 
-# Dialogue Frame Finder
+# Find the Exact Frame Where a Dialogue Appears in a media URL
+
 
 Find the **exact video frame** where a spoken dialogue line occurs — from any
 URL supported by **yt-dlp** (YouTube, Vimeo, ok.ru, …) or a local video file.
