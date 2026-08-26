@@ -1,0 +1,22 @@
+# Media / large files
+*.mp4
+*.wav
+*.mkv
+*.avi
+*.webm
+*.flv
+
+# Output folders
+output*/
+output_*/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
